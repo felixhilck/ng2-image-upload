@@ -1,8 +1,8 @@
 import { EventEmitter, OnChanges, OnInit } from '@angular/core';
 import { Headers } from '@angular/http';
-import { UploadMetadata } from './before-upload.interface';
 import { ImageService } from './image.service';
 import { Style } from './style';
+import { UploadMetadata } from './before-upload.interface';
 export declare class FileHolder {
     src: string;
     file: File;
