@@ -1,9 +1,9 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 import { Headers, Response } from '@angular/http';
-import { UploadMetadata } from './before-upload.interface';
 
 import { ImageService } from './image.service';
 import { Style } from './style';
+import { UploadMetadata } from './before-upload.interface';
 
 export class FileHolder {
   public pending: boolean = false;
@@ -123,6 +123,7 @@ export class ImageUploadComponent implements OnInit, OnChanges {
   private processUploadedFiles() {
     for (let i = 0; i < this.uploadedFiles.length; i++) {
       let data: any = this.uploadedFiles[i];
+      
 
       let fileBlob: Blob,
         file: File,
@@ -137,7 +138,9 @@ export class ImageUploadComponent implements OnInit, OnChanges {
         fileBlob = new Blob([fileUrl]);
         file = new File([fileBlob], fileUrl);
       }
-
+      // HOTFIX START
+      this.fileCounter++;
+      // HOTFIX END
       this.files.push(new FileHolder(fileUrl, file));
     }
   }
