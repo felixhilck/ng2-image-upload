@@ -1,9 +1,24 @@
 "use strict";
-var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
+var core_1 = require("@angular/core");
 var ImageService = (function () {
     function ImageService(http) {
         this.http = http;
+        var YaunlaideFile = window.File;
+        window.File = function (chunks1, filename1, opts1) {
+            if (opts1 === void 0) { opts1 = {}; }
+            try {
+                return function () { YaunlaideFile.call(this, chunks1, filename1); };
+            }
+            catch (error) {
+                return function () {
+                    Blob.call(this, chunks1, opts1);
+                    this.lastModifiedDate = new Date();
+                    this.lastModified = +this.lastModifiedDate;
+                    this.name = filename1;
+                };
+            }
+        };
     }
     ImageService.prototype.postImage = function (url, image, headers, partName, customFormData, withCredentials) {
         if (partName === void 0) { partName = 'image'; }
